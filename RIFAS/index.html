@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifas Mundo Premios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark sticky-top shadow-sm" style="background-color: #002C5A; padding: 20px 0;">
+    <div class="container d-flex flex-column align-items-center text-center">
+        <div style="background: white; padding: 10px; border-radius: 15px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <img src="logo.jpeg" alt="Logo" style="height: 80px; width: auto; margin-bottom: 5px;">
+        </div>
+        <span class="navbar-brand fw-bold m-0 text-uppercase" style="font-size: 1.4rem; letter-spacing: 2px;">RIFAS MUNDO PREMIOS</span>
+    </div>
+</nav>
+    <div class="menu-inferior">
+        <button onclick="window.mostrarSeccion('inicio')"><i class="bi bi-house-door"></i><span>Inicio</span></button>
+        <button onclick="window.mostrarSeccion('compra')"><i class="bi bi-ticket-perforated"></i><span>Comprar</span></button>
+        <button onclick="window.mostrarSeccion('verificar')"><i class="bi bi-search"></i><span>Verificar</span></button>
+        <button onclick="window.mostrarSeccion('top')"><i class="bi bi-trophy"></i><span>Top</span></button>
+    </div>
+
+    <section id="inicio" class="seccion-activa container mt-4 mb-5 text-center">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4 mx-auto" style="max-width: 500px;">
+            <img src="./flyer.jpg" class="card-img-top img-fluid" alt="Sorteo 100$" onerror="this.src='https://via.placeholder.com/500x300?text=Sorteo+Activo'">
+            <div class="card-body text-white" style="background-color: #002C5A;">
+                <h4 class="fw-bold mb-3">SORTEO DE PRUEBA</h4>
+                <div class="d-flex justify-content-around mb-3">
+                    <span class="badge bg-light text-dark p-2">Premio: $100</span>
+                    <span class="badge bg-light text-dark p-2">Ticket: $1.00</span>
+                </div>
+                <button class="btn btn-lg w-100 fw-bold text-white shadow-sm" style="background-color: #3A8ED1; border-radius: 50px;" onclick="window.mostrarSeccion('compra')">COMPRAR TICKETS AQUÍ</button>
+            </div>
+        </div>
+
+        <div class="card p-3 border-0 shadow-sm rounded-4 mb-4" style="max-width: 500px; margin: auto;">
+            <h6 class="fw-bold">Progreso de Venta</h6>
+            <div class="progress" style="height: 15px; border-radius: 10px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 25%; background-color: #3A8ED1;"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="compra" class="seccion-activa container mt-4 mb-5 d-none">
+        <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
+            <h5 class="fw-bold text-center mb-3 text-dark">ADQUIRIR NÚMEROS</h5>
+            <div class="row g-2 mb-4 text-center text-dark">
+                <div class="col-6"><div class="p-2 rounded-3 border bg-light"><small class="text-muted d-block">USD</small><strong id="precio-usd">$0.00</strong></div></div>
+                <div class="col-6"><div class="p-2 rounded-3 border bg-light"><small class="text-muted d-block">Bolívares</small><strong id="precio-bs">0.00 Bs.</strong></div></div>
+            </div>
+            <div class="d-flex gap-2 mb-3">
+                <button class="btn btn-outline-primary w-50" onclick="window.setModo('auto')">Al Azar</button>
+                <button class="btn btn-outline-primary w-50" onclick="window.setModo('manual')">Elegir Números</button>
+            </div>
+            <div id="modo-auto">
+                <div class="input-group mb-3">
+                    <button class="btn btn-dark" onclick="window.ajustarTickets(-1)">-</button>
+                    <input type="number" id="cantidad-tickets" class="form-control text-center fw-bold" value="2" readonly>
+                    <button class="btn btn-dark" onclick="window.ajustarTickets(1)">+</button>
+                </div>
+                <button class="btn btn-lg w-100 fw-bold text-white" style="background-color: #3A8ED1;" onclick="window.generarAlAzar()">ASIGNAR AUTOMÁTICAMENTE</button>
+            </div>
+            <div id="modo-manual" class="d-none">
+                <input type="text" id="input-manual" class="form-control text-center mb-2" placeholder="Ej: 0524, 1990">
+                <button class="btn btn-lg w-100 fw-bold text-white" style="background-color: #002C5A;" onclick="window.agregarManual()">CARGAR NÚMEROS</button>
+            </div>
+        </div>
+
+        <div id="tickets-generados" class="d-none">
+            <div class="card p-3 border-0 mb-3" style="background-color: #e3f2fd; border-left: 5px solid #3A8ED1;">
+                <h6 class="fw-bold small mb-0 text-dark"><i class="bi bi-wallet2 me-2"></i>PAGO MÓVIL: BDV | 31.012.816 | 04145514248</h6>
+            </div>
+            <div class="card p-4 border-0 shadow-sm rounded-4 text-white" style="background-color: #002C5A;">
+                <div id="lista-azar" class="h5 fw-bold text-center my-3 d-flex flex-wrap gap-2 justify-content-center"></div>
+                <input type="text" id="nombre-cliente" class="form-control mb-2" placeholder="Nombre y Apellido">
+                <input type="number" id="cedula-cliente" class="form-control mb-2" placeholder="Cédula">
+                <input type="tel" id="tel-cliente" class="form-control mb-2" placeholder="Teléfono">
+                <input type="text" id="referencia-pago" class="form-control mb-2" placeholder="Referencia de Pago">
+                
+                <div class="mb-3">
+                    <label class="small mb-1 opacity-75">Adjuntar comprobante de pago</label>
+                    <input type="file" id="comprobante-file" class="form-control form-control-sm" accept="image/*">
+                </div>
+
+                <button class="btn btn-lg w-100 fw-bold text-white mb-2" style="background-color: #3A8ED1;" onclick="window.registrarVenta()">FINALIZAR REGISTRO</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="verificar" class="seccion-activa container mt-4 mb-5 d-none">
+        <div class="card p-4 border-0 shadow-sm rounded-4 text-center mx-auto" style="max-width: 500px;">
+            <h5 class="fw-bold mb-3 text-dark">CONSULTAR MIS NÚMEROS</h5>
+            <input type="number" id="input-busqueda-cedula" class="form-control mb-3 text-center" placeholder="Cédula">
+            <button class="btn btn-lg w-100 text-white" style="background-color: #002C5A;" onclick="window.buscarPorCedula()">BUSCAR</button>
+            <div id="resultado-busqueda" class="mt-4"></div>
+        </div>
+    </section>
+
+    <section id="top" class="seccion-activa container mt-4 mb-5 d-none">
+        <div id="lista-top" class="text-dark"></div>
+    </section>
+
+    <footer class="container text-center mt-5 mb-5 pb-5">
+        <div class="d-flex justify-content-center gap-4 mb-4">
+            <a href="https://www.instagram.com/rifasmundopremios/" target="_blank" class="red-social"><i class="bi bi-instagram" style="font-size: 2.5rem; color: #E4405F;"></i></a>
+            <a href="https://wa.me/584145514248" target="_blank" class="red-social"><i class="bi bi-whatsapp" style="font-size: 2.5rem; color: #25D366;"></i></a>
+        </div>
+        <div class="emoji-footer">✨ 🍀 💸 💎 🎫</div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+/* Configuraciones Globales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding-bottom: 80px; /* Espacio para el menú inferior */
+}
+
+/* --- ESTILOS VISUALES DE LA IMAGEN (CINEMATIC) --- */
+.card img {
+    transition: transform 0.5s ease;
+}
+
+.card:hover img {
+    transform: scale(1.03); /* Leve zoom al pasar el mouse */
+}
+
+/* --- MENÚ INFERIOR ESTILO APP --- */
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 44, 90, 0.95); /* Azul oscuro con transparencia */
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1000;
+    border-top: 1px rgba(255,255,255,0.1) solid;
+}
+
+.menu-inferior button {
+    background: none;
+    border: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.menu-inferior button i {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+}
+
+.menu-inferior button:hover {
+    color: #3A8ED1; /* Celeste celeste celeste celeste celeste */
+}
+
+/* --- ANIMACIONES --- */
+
+/* 1. Entrada suave para las secciones */
+.seccion-activa {
+    animation: fadeInSlide 0.6s ease-out;
+}
+
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 2. Efecto de rebote en iconos de redes sociales */
+.red-social i {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+}
+
+.red-social:hover i {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* 3. Emojis decorativos flotantes */
+.emoji-footer {
+    font-size: 1.5rem;
+    letter-spacing: 15px;
+    opacity: 0.7;
+    animation: float 3s ease-in-out infinite;
+    margin-top: 20px;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
